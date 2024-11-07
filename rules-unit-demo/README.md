@@ -1,6 +1,22 @@
+# Pre-requisites install 
+```bash
+# install maven depending on whether you are using rhel based or deb based linux
+sudo dnf install maven
+or 
+sudo apt-install maven
+
+# maven version
+pradhyushrestha@penguin ~/g/d/rules-unit-demo (main) [127]> mvn --version
+Apache Maven 3.8.7
+Maven home: /usr/share/maven
+Java version: 17.0.13, vendor: Debian, runtime: /usr/lib/jvm/java-17-openjdk-amd64
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "6.6.30-02728-g8557330097f3", arch: "amd64", family: "unix"
+pradhyushrestha@penguin ~/g/d/rules-unit-demo (main)>
+
+
 # run the test
 ```bash
-sudo dnf install maven
 mvn clean test
 
 ```
