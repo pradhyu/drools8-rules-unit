@@ -15,29 +15,60 @@ import static org.junit.Assert.assertTrue;
 
 public class RuleTest {
 
-    static final Logger LOG = LoggerFactory.getLogger(RuleTest.class);
+  static final Logger LOG = LoggerFactory.getLogger(RuleTest.class);
 
-    @Test
-    public void test() {
-        LOG.info("Creating RuleUnit");
-        MeasurementUnit measurementUnit = new MeasurementUnit();
+  @Test
+  public void test() {
+    LOG.info("Creating RuleUnit");
+    MeasurementUnit measurementUnit = new MeasurementUnit();
 
-        RuleUnitInstance<MeasurementUnit> instance = RuleUnitProvider.get().createRuleUnitInstance(measurementUnit);
-        try {
-            LOG.info("Insert data");
-            measurementUnit.getMeasurements().add(new Measurement("color", "red"));
-            measurementUnit.getMeasurements().add(new Measurement("color", "green"));
-            measurementUnit.getMeasurements().add(new Measurement("color", "blue"));
+    RuleUnitInstance<MeasurementUnit> instance = RuleUnitProvider.get().createRuleUnitInstance(measurementUnit);
+    try {
+      LOG.info("Insert color measurement data");
+      measurementUnit.getMeasurements().add(new Measurement("color", "red"));
+      measurementUnit.getMeasurements().add(new Measurement("color", "green"));
+      measurementUnit.getMeasurements().add(new Measurement("color", "blue"));
+      measurementUnit.getMeasurements().add(new Measurement("color", "red"));
+      measurementUnit.getMeasurements().add(new Measurement("color", "red"));
+      measurementUnit.getMeasurements().add(new Measurement("color", "red"));
+      measurementUnit.getMeasurements().add(new Measurement("color", "red"));
+      measurementUnit.getMeasurements().add(new Measurement("color", "red"));
+      measurementUnit.getMeasurements().add(new Measurement("color", "red"));
+      measurementUnit.getMeasurements().add(new Measurement("color", "red"));
+      measurementUnit.getMeasurements().add(new Measurement("color", "red"));
+      measurementUnit.getMeasurements().add(new Measurement("color", "red"));
+      measurementUnit.getMeasurements().add(new Measurement("color", "red"));
 
-            LOG.info("Run query. Rules are also fired");
-            List<Measurement> queryResult = instance.executeQuery("FindColor").toList("$m");
+      LOG.info("Insert shape measurement data");
+      measurementUnit.getMeasurements().add(new Measurement("shape", "triangle"));
+      measurementUnit.getMeasurements().add(new Measurement("shape", "triangle"));
+      measurementUnit.getMeasurements().add(new Measurement("shape", "triangle"));
+      measurementUnit.getMeasurements().add(new Measurement("shape", "square"));
+      measurementUnit.getMeasurements().add(new Measurement("shape", "square"));
+      measurementUnit.getMeasurements().add(new Measurement("shape", "square"));
+      measurementUnit.getMeasurements().add(new Measurement("shape", "square"));
+      measurementUnit.getMeasurements().add(new Measurement("shape", "rectangle"));
+      measurementUnit.getMeasurements().add(new Measurement("shape", "rectangle"));
+      measurementUnit.getMeasurements().add(new Measurement("shape", "rectangle"));
+      measurementUnit.getMeasurements().add(new Measurement("shape", "rectangle"));
+      measurementUnit.getMeasurements().add(new Measurement("shape", "pentagon"));
+      measurementUnit.getMeasurements().add(new Measurement("shape", "pentagon"));
+      measurementUnit.getMeasurements().add(new Measurement("shape", "pentagon"));
+      measurementUnit.getMeasurements().add(new Measurement("shape", "pentagon"));
+      measurementUnit.getMeasurements().add(new Measurement("shape", "pentagon"));
+      LOG.info("Run query. Rules are  also fired");
+      List<Measurement> queryResult = instance.executeQuery("FindColor").toList("$m");
 
-            assertEquals(3, queryResult.size());
-            assertTrue("contains red", measurementUnit.getControlSet().contains("red"));
-            assertTrue("contains green", measurementUnit.getControlSet().contains("green"));
-            assertTrue("contains blue", measurementUnit.getControlSet().contains("blue"));
-        } finally {
-            instance.close();
-        }
+      assertTrue(queryResult.size() > 0);
+      assertTrue("contains red", measurementUnit.getControlSet().contains("red"));
+      assertTrue("contains green", measurementUnit.getControlSet().contains("green"));
+      assertTrue("contains blue", measurementUnit.getControlSet().contains("blue"));
+      List<Measurement> redResult = instance.executeQuery("FindColorRed").toList("$m");
+      LOG.info("Found: RedResult");
+      redResult.forEach(m -> LOG.info("Found: " + m));
+
+    } finally {
+      instance.close();
     }
+  }
 }

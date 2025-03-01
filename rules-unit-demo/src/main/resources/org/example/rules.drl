@@ -10,6 +10,31 @@ then
 	controlSet.add($colorVal);
 end
 
+rule "Delete red"
+when
+	$redMeasurement: /measurements[ id == "color", this.val=="red" ]
+then
+  delete($redMeasurement);
+end
+
+
 query FindColor
     $m: /measurements[ id == "color" ]
 end
+
+query FindColorRed
+    $m: /measurements[ id == "color" , val=="red"]
+end
+
+
+
+rule "Delete all but one measurement for color with blue"
+enabled true
+when 
+	$blueMeasurement: /measurements[ id == "color", this.val=="blue" ]
+	$blueMeasurement2: /measurements[ id == "color", this.val=="blue" ]
+  
+then
+  delete ($blueMeasurement);
+end
+
