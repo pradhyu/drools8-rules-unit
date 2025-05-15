@@ -36,5 +36,15 @@ when
   
 then
   delete ($blueMeasurement);
+  System.out.println("testing");
 end
 
+
+
+
+rule "testing the rule without the when part"
+when 
+then
+System.out.println("I run without the when condition");
+
+end

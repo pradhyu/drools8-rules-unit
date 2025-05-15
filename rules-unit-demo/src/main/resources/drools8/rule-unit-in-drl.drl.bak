@@ -1,0 +1,21 @@
+package drools8;
+
+unit MortgageRules;
+
+import org.drools.ruleunits.api.RuleUnitData;
+import org.drools.ruleunits.api.DataStream;
+
+declare Person
+    name : String
+    dateOfBirth : Date
+    address : Address
+end
+
+declare MortgageRules extends RuleUnitData
+  persons: DataStream<Person>
+end
+
+rule "Using a rule unit with a declared type"
+  when
+    $p : /persons[ name == "James" ]
+  then   // Insert Mark, who 
